@@ -1,0 +1,7 @@
+# Notas de Refactorización SOLID
+
+## Principio 1: Single Responsibility Principle (SRP)
+En el código original, la clase `Pedido` asumía múltiples responsabilidades críticas como validar el inventario, calcular los impuestos, registrar en la base de datos, imprimir el comprobante y enviar notificaciones por WhatsApp. Al aplicar este principio, se dividió la lógica en clases totalmente independientes (`ValidadorStock`, `CalculadoraPedido`, `ImpresorTicket`), logrando que cada componente tenga una sola razón para cambiar. Esto facilita enormemente el mantenimiento del sistema, previene efectos colaterales al modificar una funcionalidad y permite realizar pruebas unitarias aisladas de forma eficiente.
+
+## Principio 5: Dependency Inversion Principle (DIP)
+En la estructura inicial, la clase de negocio dependía directamente de detalles de bajo nivel y tecnologías concretas para el almacenamiento de datos y el envío de mensajes. Mediante la inversión de dependencias, la lógica principal ahora opera a través de abstracciones (`PedidoRepository` y `Notificador`), recibiendo las implementaciones específicas mediante inyección de dependencias en el constructor. Gracias a este desacoplamiento, es posible cambiar de proveedor de base de datos o de plataforma de mensajería en el futuro sin alterar el núcleo de las reglas de negocio del sistema.
